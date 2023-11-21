@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
     private bool isGrounded = false; //can doublejukp fix later if not lazy
     private SpriteRenderer sr;
-    private bool stopMovement = false;
+    private bool attackActive = false;
 
 
     [Header("Sprites")]
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stopMovement) { return; }
+        if (attackActive) { return; }
         Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
         rb.velocity = moveVector;
     }
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveAxis = inputValue.Get<float>();
 
-        if(!isGrounded) { return; }
+        if(!isGrounded || attackActive) { return; }
 
         if (inputValue.Get<float>()!= 0) 
         {
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputValue.isPressed)
         {
-            if(isGrounded)
+            if(isGrounded && !attackActive)
             {
                 Vector2 moveVector = new Vector2(rb.velocity.x, jumpHeight * Time.deltaTime);
                 rb.velocity = moveVector;
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnKick(InputValue inputValue)
     {
-        if (inputValue.isPressed) 
+        if (inputValue.isPressed && !attackActive) 
         {
             StopAllCoroutines();
             StartCoroutine(KickAttack()); 
@@ -169,9 +169,9 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator KickAttack() 
     {
         sr.sprite = kickWind;
-        stopMovement = true;
+        attackActive = true;
         yield return new WaitForSeconds(kickWindupTime);
-        stopMovement = false;
+        attackActive = false;
         sr.sprite = kick;
         coIdle = StartCoroutine(IdleLoop());
     }

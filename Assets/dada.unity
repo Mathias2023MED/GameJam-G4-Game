@@ -295,13 +295,14 @@ MonoBehaviour:
   idle1: {fileID: 21300000, guid: e27df5ee937d17f46b79060f7357c9e5, type: 3}
   idle2: {fileID: 21300000, guid: b57cea24cee548e409b5e248b1e7cc46, type: 3}
   jump: {fileID: 21300000, guid: 15d115182341f95448cdfa4c360b3f6b, type: 3}
-  kick: {fileID: 21300000, guid: f95db0fbb299ba7499e90418591e261d, type: 3}
+  kick: {fileID: 21300000, guid: 0837da0fe1d740340b75ce0caccd7cf4, type: 3}
   kickWind: {fileID: 21300000, guid: 3ec90f336c57a384ba316f04e76276b6, type: 3}
-  punch: {fileID: 0}
-  punchWind: {fileID: 0}
+  punch: {fileID: 21300000, guid: 34ca98d3ca6d8724c8da3d03bc0eb216, type: 3}
+  punchWind: {fileID: 21300000, guid: a0f7de95481699e4fb5069f8f2e456e8, type: 3}
   walk1: {fileID: 21300000, guid: 827d05d58b31d154fbfc07b027f2ac0b, type: 3}
   walk2: {fileID: 21300000, guid: 9541fafcf53132b4f9af1c8fc8cf0b06, type: 3}
   kickWindupTime: 0.4
+  punchWindupTime: 0.3
 --- !u!114 &995284967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,7 +781,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.3639755
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

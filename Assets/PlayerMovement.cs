@@ -34,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine coIdle;
 
 
-    [SerializeField]private float kickWindupTime;
+    [SerializeField] private float kickWindupTime;
+    [SerializeField] private float punchWindupTime;
 
 
 
@@ -99,6 +100,15 @@ public class PlayerMovement : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(KickAttack()); 
+        }
+    }
+
+    void OnPunch(InputValue inputValue)
+    {
+        if (inputValue.isPressed && !attackActive)
+        {
+            StopAllCoroutines();
+            StartCoroutine(PunchAttack());
         }
     }
 
@@ -173,6 +183,16 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(kickWindupTime);
         attackActive = false;
         sr.sprite = kick;
+        coIdle = StartCoroutine(IdleLoop());
+    }
+
+    IEnumerator PunchAttack()
+    {
+        sr.sprite = punchWind;
+        attackActive = true;
+        yield return new WaitForSeconds(punchWindupTime);
+        attackActive = false;
+        sr.sprite = punch;
         coIdle = StartCoroutine(IdleLoop());
     }
 

@@ -6,16 +6,18 @@ public class ChildCollision : MonoBehaviour
 {
     private PlayerMovement pm;
     private string playerTag;
-    private string enemyTag;
-    private void Start()
+    //private string enemyTag;
+    private void OnEnable()
     {
+        //Debug.Log("start");
+
         pm=transform.parent.GetComponent<PlayerMovement>();
         playerTag = transform.parent.tag;
 
-        if (playerTag == "Player")
-        {
-            enemyTag = "Player2";
-        }else enemyTag = "Player";
+        //if (playerTag == "Player")
+        //{
+        //    enemyTag = "Player2";
+        //}else enemyTag = "Player";
 
         if(gameObject.tag == "Kick") { pm.kickChild = gameObject; pm.SetChildReference(1); }
         else if (gameObject.tag == "Punch") { pm.punchChild = gameObject; pm.SetChildReference(2); }
@@ -26,9 +28,12 @@ public class ChildCollision : MonoBehaviour
 
     }
 
+
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.tag == enemyTag)
+        //Debug.Log("collide " + col.transform.tag);
+        if (col.transform.tag == "Hitbox")
         {
 
             pm.ChildCollision(gameObject);

@@ -19,10 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private bool blockUpper;
     private bool blockLower;
 
-    [SerializeField] private PlayerMovement enemyPlayerScript;
-
-
-    [SerializeField] private TMP_Text enemyHP;
+    [HideInInspector] public PlayerMovement enemyPlayerScript; //used on char spawner
+    [HideInInspector] public TMP_Text enemyHP;
 
     [Header("Player stats")]
     [SerializeField] private float moveSpeed;
@@ -72,11 +70,19 @@ public class PlayerMovement : MonoBehaviour
         //coIdle = StartCoroutine(IdleLoop());
     }
 
+    public void EnableChildCollision()
+    {
+        transform.GetChild(0).GetComponent<ChildCollision>().enabled = true;
+        transform.GetChild(1).GetComponent<ChildCollision>().enabled = true;
+        //Debug.Log("enabled");
+    }
+
     public void SetChildReference( int type)
     {
         AttackBoxMove(true, type);
     }
 
+    
     private void AttackBoxMove(bool moveAway, int type)
     {
         if (type == 1) 
@@ -99,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChildCollision(GameObject child)
     {
+        //Debug.Log(enemyHP.text);
         if (child.tag == "Punch" && enemyPlayerScript.blockUpper)
         {
             Debug.Log("Blocked upper");

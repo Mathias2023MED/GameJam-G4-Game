@@ -26,8 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float moveSpeed;
     [HideInInspector] public float jumpHeight;
     [HideInInspector] public float health;
-    [HideInInspector] public float punchDamage = 15;
     [HideInInspector] public float kickDamage = 25;
+    [HideInInspector] public float punchDamage = 15;
 
     [Header("Sprites")]
     [SerializeField] private Sprite blockHigh;
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         sr.sprite = idle1;
-        //coIdle = StartCoroutine(IdleLoop());
+        coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }
 
     public void EnableChildCollision()
@@ -116,14 +116,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Blocked lower");
             return;
         }
-        if(child.tag == "Punch")
+        if(child.tag == "Kick")
         {
-            health -= punchDamage;//this player effect enemy health
-        }else if (child.tag == "Kick")
+            health -= kickDamage;//this player effect enemy health
+        }else if (child.tag == "Punch")
         {
-            health -= kickDamage;
+            health -= punchDamage;
         }
-
 
             
         enemyHP.text = $"{health}/100";
@@ -139,7 +138,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Debug.Log(moveSpeed);
+        //Debug.Log(jumpHeight);
+        //Debug.Log(isGrounded);
+        //Debug.Log(attackActive);
         if (attackActive) { return; }
         Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
         rb.velocity = moveVector;

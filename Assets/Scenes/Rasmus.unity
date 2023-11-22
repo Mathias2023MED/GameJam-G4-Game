@@ -6508,6 +6508,7 @@ MonoBehaviour:
   - {fileID: 1127508674}
   elementsToEnable:
   - {fileID: 1660291297}
+  - {fileID: 2088083496}
   actionButton: {fileID: 1955570362}
 --- !u!114 &1955570362
 MonoBehaviour:
@@ -7333,13 +7334,14 @@ GameObject:
   - component: {fileID: 2088083497}
   - component: {fileID: 2088083499}
   - component: {fileID: 2088083498}
+  - component: {fileID: 2088083500}
   m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2088083497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7357,7 +7359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1356.9999, y: 32.158577}
+  m_AnchoredPosition: {x: -1300, y: 32.158577}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088083498
@@ -7398,6 +7400,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088083496}
   m_CullTransparentMesh: 1
+--- !u!114 &2088083500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088083496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca624541bfcdd347ae43a593c89c0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startX: 0
+  endX: 2350
+  moveSpeed: 500
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

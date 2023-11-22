@@ -9,12 +9,16 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float moveAxis;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpHeight;
+
     private bool isGrounded = false; //can doublejukp fix later if not lazy
     private SpriteRenderer sr;
     private bool attackActive = false;
 
+
+    [Header("Player stats")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpHeight;
+    
 
     [Header("Sprites")]
     [SerializeField] private Sprite blockHigh;
@@ -30,14 +34,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Sprite walk1;
     [SerializeField] private Sprite walk2;
 
-    private Coroutine coWalk;
-    private Coroutine coIdle;
 
 
+
+    [Header("Coroutine wait times")]
     [SerializeField] private float kickWindupTime;
     [SerializeField] private float punchWindupTime;
+    [SerializeField] private float idleLoopTime = 1f;
+    [SerializeField] private float walkLoopTime = 0.5f;
 
+    [SerializeField] private float kickDelay = 0.5f;
+    [SerializeField] private float punchDelay = 0.3f;
 
+    private Coroutine coWalk;
+    private Coroutine coIdle;
 
     // Start is called before the first frame update
     void Start()
@@ -46,12 +56,13 @@ public class PlayerMovement : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         sr.sprite = idle1;
-        coIdle = StartCoroutine(IdleLoop());
+        //coIdle = StartCoroutine(IdleLoop());
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (attackActive) { return; }
         Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
         rb.velocity = moveVector;
@@ -86,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isGrounded && !attackActive)
             {
-                Vector2 moveVector = new Vector2(rb.velocity.x, jumpHeight * Time.deltaTime);
+                Vector2 moveVector = new Vector2(rb.velocity.x, jumpHeight);
                 rb.velocity = moveVector;
                 StopAllCoroutines();
                 sr.sprite = jump;
@@ -114,9 +125,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ground")
+        if(collision.tag == "Ground" && !attackActive)
         {
-            sr.sprite = idle1;
+            StopAllCoroutines();
+            sr.sprite = idle1; // to instantly land
             coIdle = StartCoroutine(IdleLoop());
         }
     }
@@ -148,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator IdleLoop()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(idleLoopTime);
         if (sr.sprite == idle1)
         {
             sr.sprite = idle2;
@@ -163,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator WalkLoop()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(walkLoopTime);
         if (sr.sprite == walk1)
         {
             sr.sprite = walk2;
@@ -173,17 +185,15 @@ public class PlayerMovement : MonoBehaviour
             sr.sprite = walk1;
         }
         coWalk = StartCoroutine(WalkLoop());
-
     }
 
-    IEnumerator KickAttack() 
+    IEnumerator KickAttack()
     {
         sr.sprite = kickWind;
         attackActive = true;
         yield return new WaitForSeconds(kickWindupTime);
-        attackActive = false;
         sr.sprite = kick;
-        coIdle = StartCoroutine(IdleLoop());
+        coIdle = StartCoroutine(AttackAfter(kickDelay));
     }
 
     IEnumerator PunchAttack()
@@ -191,9 +201,19 @@ public class PlayerMovement : MonoBehaviour
         sr.sprite = punchWind;
         attackActive = true;
         yield return new WaitForSeconds(punchWindupTime);
-        attackActive = false;
         sr.sprite = punch;
+        coIdle = StartCoroutine(AttackAfter(punchDelay));
+    }
+
+    IEnumerator AttackAfter(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        attackActive = false;
+
+        sr.sprite = idle1;
         coIdle = StartCoroutine(IdleLoop());
     }
+
+
 
 }

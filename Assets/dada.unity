@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 700
-  jumpHeight: 700
+  jumpHeight: 20
   blockHigh: {fileID: 0}
   blockLow: {fileID: 0}
   hurt: {fileID: 0}
@@ -303,6 +303,10 @@ MonoBehaviour:
   walk2: {fileID: 21300000, guid: 9541fafcf53132b4f9af1c8fc8cf0b06, type: 3}
   kickWindupTime: 0.4
   punchWindupTime: 0.3
+  idleLoopTime: 1
+  walkLoopTime: 0.5
+  kickDelay: 0.5
+  punchDelay: 0.3
 --- !u!114 &995284967
 MonoBehaviour:
   m_ObjectHideFlags: 0

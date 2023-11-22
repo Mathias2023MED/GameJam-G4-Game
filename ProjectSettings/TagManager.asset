@@ -8,6 +8,7 @@ TagManager:
   - Player2
   - Kick
   - Punch
+  - Hitbox
   layers:
   - Default
   - TransparentFX

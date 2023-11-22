@@ -75,7 +75,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178834341864136882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21e1c8b66b3392c4b93495ca294cff1f, type: 3}
   m_Name: 
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7370617538047650697}
   - component: {fileID: 3836444350533685811}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: Benjamin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34ca98d3ca6d8724c8da3d03bc0eb216, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 201ef94b08293ab4ebf7ad9ace02e019, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -377,29 +377,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kickChild: {fileID: 0}
   punchChild: {fileID: 0}
+  enemyPlayerScript: {fileID: 0}
   enemyHP: {fileID: 0}
   moveSpeed: 700
   jumpHeight: 5
   health: 100
   damage: 10
-  blockHigh: {fileID: 21300000, guid: aab70e4f3a1f01147861f332b59d3e65, type: 3}
-  blockLow: {fileID: 21300000, guid: 6038dca6d39c2ec4f84c63addb325c0b, type: 3}
-  hurt: {fileID: 21300000, guid: a304292630cb4e84ea6272b1ea28da16, type: 3}
-  idle1: {fileID: 21300000, guid: e27df5ee937d17f46b79060f7357c9e5, type: 3}
-  idle2: {fileID: 21300000, guid: b57cea24cee548e409b5e248b1e7cc46, type: 3}
-  jump: {fileID: 21300000, guid: 15d115182341f95448cdfa4c360b3f6b, type: 3}
-  kick: {fileID: 21300000, guid: 0837da0fe1d740340b75ce0caccd7cf4, type: 3}
-  kickWind: {fileID: 21300000, guid: 3ec90f336c57a384ba316f04e76276b6, type: 3}
-  punch: {fileID: 21300000, guid: 34ca98d3ca6d8724c8da3d03bc0eb216, type: 3}
-  punchWind: {fileID: 21300000, guid: a0f7de95481699e4fb5069f8f2e456e8, type: 3}
-  walk1: {fileID: 21300000, guid: 827d05d58b31d154fbfc07b027f2ac0b, type: 3}
-  walk2: {fileID: 21300000, guid: 9541fafcf53132b4f9af1c8fc8cf0b06, type: 3}
+  blockHigh: {fileID: 21300000, guid: bbe8be046e8897149b282273c4188f19, type: 3}
+  blockLow: {fileID: 21300000, guid: eded07d2dc91ccf44a05c366785853b5, type: 3}
+  hurt: {fileID: 21300000, guid: 3dbcac2a8df64b2419f1e8b5b140e5c4, type: 3}
+  idle1: {fileID: 21300000, guid: 201ef94b08293ab4ebf7ad9ace02e019, type: 3}
+  idle2: {fileID: 21300000, guid: a7c9f5902fd84c344a1ebfb368dbb832, type: 3}
+  jump: {fileID: 21300000, guid: 5786c7c5992ef6d468a89781dd83766b, type: 3}
+  kick: {fileID: 21300000, guid: f3f8d6c0d4a4b7e4a83540e6fa4e6778, type: 3}
+  kickWind: {fileID: 21300000, guid: 93e472f0f1a63b247982f8add90fb7c3, type: 3}
+  punch: {fileID: 21300000, guid: c2afbc0dc89d41f4f8c469eb80cb45a8, type: 3}
+  punchWind: {fileID: 21300000, guid: 835307c1dc5d6a84384a6412e922b9af, type: 3}
+  walk1: {fileID: 21300000, guid: 4115d5d4ec1877e4b8598b640229c29e, type: 3}
+  walk2: {fileID: 21300000, guid: 6ce4b54631bd68446b6247c6b2a7a03b, type: 3}
   kickWindupTime: 0.4
   punchWindupTime: 0.3
   idleLoopTime: 1
   walkLoopTime: 0.5
   kickDelay: 0.5
   punchDelay: 0.3
+  blockDuration: 0.4
+  hurtTime: 0.3
 --- !u!1 &6534503565686375508
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +415,7 @@ GameObject:
   - component: {fileID: 7000248933742133081}
   m_Layer: 6
   m_Name: HitBox
-  m_TagString: Untagged
+  m_TagString: Hitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,7 +545,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8738437090675218836}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21e1c8b66b3392c4b93495ca294cff1f, type: 3}
   m_Name: 

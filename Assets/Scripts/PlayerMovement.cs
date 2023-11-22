@@ -23,10 +23,11 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public TMP_Text enemyHP;
 
     [Header("Player stats")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float health;
-    [SerializeField] private float damage = 25;
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public float jumpHeight;
+    [HideInInspector] public float health;
+    [HideInInspector] public float punchDamage = 15;
+    [HideInInspector] public float kickDamage = 25;
 
     [Header("Sprites")]
     [SerializeField] private Sprite blockHigh;
@@ -115,7 +116,16 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Blocked lower");
             return;
         }
-            health -= damage;//this player effect enemy health
+        if(child.tag == "Punch")
+        {
+            health -= punchDamage;//this player effect enemy health
+        }else if (child.tag == "Kick")
+        {
+            health -= kickDamage;
+        }
+
+
+            
         enemyHP.text = $"{health}/100";
         if (!enemyPlayerScript.attackActive)
         {

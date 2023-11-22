@@ -16,6 +16,13 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField] private Vector3 spawnPoint1 = new Vector3(-6,0,0);
     [SerializeField] private Vector3 spawnPoint2 = new Vector3(6, 0, 0);
 
+    [Header("Player stats")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private float health;
+    [SerializeField] private float punchDamage = 15;
+    [SerializeField] private float kickDamage = 25;
+
     public void SelectCharacter(GameObject chosenChar, int slot)
     {
         if (slot == 1)
@@ -30,19 +37,35 @@ public class CharacterSpawner : MonoBehaviour
 
         GameObject player1 = Instantiate(chosenCharacters[0]);
         GameObject player2 = Instantiate(chosenCharacters[1]);
+        GameObject[] chosenCharactersSpawned = new GameObject[2];
+        chosenCharactersSpawned[0]= player1;
+        chosenCharactersSpawned[1]= player2;
 
+    PlayerMovement pm1 = player1.GetComponent<PlayerMovement>();
         player1.tag = "Player";
         player1.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-        player1.GetComponent<PlayerMovement>().enemyPlayerScript = player2.GetComponent<PlayerMovement>();
-        player1.GetComponent<PlayerMovement>().enemyHP = player2HP;
+        pm1.enemyPlayerScript = player2.GetComponent<PlayerMovement>();
+        pm1.enemyHP = player2HP;
         player1.transform.position = spawnPoint1;
 
+
+        PlayerMovement pm2 = player2.GetComponent<PlayerMovement>();
         player2.tag = "Player2";
         player2.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player2");
-        player2.GetComponent<PlayerMovement>().enemyPlayerScript = player1.GetComponent<PlayerMovement>();
-        player2.GetComponent<PlayerMovement>().enemyHP = player1HP;
+        pm2.enemyPlayerScript = player1.GetComponent<PlayerMovement>();
+        pm2.enemyHP = player1HP;
         player2.transform.position = spawnPoint2;
         player2.transform.localScale = new Vector3(-1,1,1);
+
+        foreach (GameObject player in chosenCharacters)//sync stats
+        {
+            PlayerMovement pm = player.GetComponent<PlayerMovement>();
+            pm.moveSpeed = moveSpeed;
+            pm.jumpHeight = jumpHeight;
+            pm.health = health;
+            pm.punchDamage = punchDamage;
+            pm.kickDamage = kickDamage;
+        }
 
 
         player1.GetComponent<PlayerMovement>().EnableChildCollision();

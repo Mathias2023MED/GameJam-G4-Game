@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         sr.sprite = idle1;
-        //coIdle = StartCoroutine(IdleLoop());
+        coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }
 
     public void EnableChildCollision()
@@ -139,7 +139,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Debug.Log(moveSpeed);
+        //Debug.Log(jumpHeight);
+        //Debug.Log(isGrounded);
+        //Debug.Log(attackActive);
         if (attackActive) { return; }
         Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
         rb.velocity = moveVector;

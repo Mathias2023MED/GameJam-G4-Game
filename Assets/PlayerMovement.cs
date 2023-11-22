@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,18 +14,27 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false; //can doublejukp fix later if not lazy
     private SpriteRenderer sr;
     private bool attackActive = false;
+    [HideInInspector] public GameObject kickChild;
+    [HideInInspector] public GameObject punchChild;
+    private bool blockUpper;
+    private bool blockLower;
 
+    [SerializeField] private PlayerMovement enemyPlayerScript;
+
+
+    [SerializeField] private TMP_Text enemyHP;
 
     [Header("Player stats")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpHeight;
-    
+    [SerializeField] private float health;
+    [SerializeField] private float damage = 25;
 
     [Header("Sprites")]
     [SerializeField] private Sprite blockHigh;
     [SerializeField] private Sprite blockLow;
-    [SerializeField] private Sprite hurt;
-    [SerializeField] private Sprite idle1;
+    [SerializeField] public Sprite hurt;
+    [SerializeField] public Sprite idle1;
     [SerializeField] private Sprite idle2;
     [SerializeField] private Sprite jump;
     [SerializeField] private Sprite kick;
@@ -48,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Coroutine coWalk;
     private Coroutine coIdle;
+    [SerializeField] private float blockDuration = 0.4f;
+    [SerializeField] public float hurtTime = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -55,8 +67,56 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
+        
         sr.sprite = idle1;
         //coIdle = StartCoroutine(IdleLoop());
+    }
+
+    public void SetChildReference( int type)
+    {
+        AttackBoxMove(true, type);
+    }
+
+    private void AttackBoxMove(bool moveAway, int type)
+    {
+        if (type == 1) 
+        {
+            if (moveAway)
+            {
+                kickChild.transform.position += new Vector3(10000, 0, 0);
+            }
+            else kickChild.transform.position -= new Vector3(10000, 0, 0);
+        }else if(type == 2)
+        {
+            if (moveAway)
+            {
+                punchChild.transform.position += new Vector3(10000, 0, 0);
+            }
+            else punchChild.transform.position -= new Vector3(10000, 0, 0);
+        }
+        
+    }
+
+    public void ChildCollision(GameObject child)
+    {
+        if (child.tag == "Punch" && enemyPlayerScript.blockUpper)
+        {
+            Debug.Log("Blocked upper");
+            return;
+        }else if (child.tag == "Kick" && enemyPlayerScript.blockLower)
+        {
+            Debug.Log("Blocked lower");
+            return;
+        }
+            health -= damage;//this player effect enemy health
+        enemyHP.text = $"{health}/100";
+        if (!enemyPlayerScript.attackActive)
+        {
+            enemyPlayerScript.StopAllCoroutines();
+            enemyPlayerScript.sr.sprite = enemyPlayerScript.hurt;
+            enemyPlayerScript.StartCoroutine(HurtTime());
+        }
+        if (health <= 0) { Destroy(enemyPlayerScript.gameObject); }
     }
 
     // Update is called once per frame
@@ -102,6 +162,31 @@ public class PlayerMovement : MonoBehaviour
                 StopAllCoroutines();
                 sr.sprite = jump;
             }
+        }
+    }
+
+    void OnBlockKick(InputValue inputValue)
+    {
+        if (inputValue.isPressed && !attackActive)
+        {
+            StopAllCoroutines();
+            attackActive = true;
+            blockLower = true;
+            sr.sprite = blockLow;
+            StartCoroutine(BlockTime());
+        }
+    }
+
+    void OnBlockPunch(InputValue inputValue)
+    {
+        if (inputValue.isPressed && !attackActive)
+        {
+            
+            StopAllCoroutines();
+            attackActive = true;
+            blockUpper = true;
+            sr.sprite = blockHigh;
+            StartCoroutine(BlockTime());
         }
     }
 
@@ -193,7 +278,8 @@ public class PlayerMovement : MonoBehaviour
         attackActive = true;
         yield return new WaitForSeconds(kickWindupTime);
         sr.sprite = kick;
-        coIdle = StartCoroutine(AttackAfter(kickDelay));
+        AttackBoxMove(false, 1);
+        coIdle = StartCoroutine(AttackAfter(kickDelay, 1));
     }
 
     IEnumerator PunchAttack()
@@ -202,18 +288,39 @@ public class PlayerMovement : MonoBehaviour
         attackActive = true;
         yield return new WaitForSeconds(punchWindupTime);
         sr.sprite = punch;
-        coIdle = StartCoroutine(AttackAfter(punchDelay));
+        AttackBoxMove(false, 2);
+        coIdle = StartCoroutine(AttackAfter(punchDelay, 2));
     }
 
-    IEnumerator AttackAfter(float delayTime)
+    IEnumerator AttackAfter(float delayTime, int type)
     {
+
         yield return new WaitForSeconds(delayTime);
         attackActive = false;
+        if (type == 1) { AttackBoxMove(true, 1); } else if (type == 2) { AttackBoxMove(true, 2); }
+        sr.sprite = idle1;
+        coIdle = StartCoroutine(IdleLoop());
+    }
+    IEnumerator BlockTime()
+    {
+
+        yield return new WaitForSeconds(blockDuration);
+        attackActive = false;
+        blockLower = false;
+        blockUpper = false;
 
         sr.sprite = idle1;
         coIdle = StartCoroutine(IdleLoop());
     }
 
+    IEnumerator HurtTime()
+    {
+
+        yield return new WaitForSeconds(enemyPlayerScript.hurtTime);
+        
+        enemyPlayerScript.sr.sprite = enemyPlayerScript.idle1;
+        enemyPlayerScript.coIdle = enemyPlayerScript.StartCoroutine(enemyPlayerScript.IdleLoop());
+    }
 
 
 }

@@ -19,16 +19,15 @@ public class PlayerMovement : MonoBehaviour
     private bool blockUpper;
     private bool blockLower;
 
-    [SerializeField] private PlayerMovement enemyPlayerScript;
-
-
-    [SerializeField] private TMP_Text enemyHP;
+    [HideInInspector] public PlayerMovement enemyPlayerScript; //used on char spawner
+    [HideInInspector] public TMP_Text enemyHP;
 
     [Header("Player stats")]
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float health;
-    [SerializeField] private float damage = 25;
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public float jumpHeight;
+    [HideInInspector] public float health;
+    [HideInInspector] public float punchDamage = 15;
+    [HideInInspector] public float kickDamage = 25;
 
     [Header("Sprites")]
     [SerializeField] private Sprite blockHigh;
@@ -72,11 +71,19 @@ public class PlayerMovement : MonoBehaviour
         //coIdle = StartCoroutine(IdleLoop());
     }
 
+    public void EnableChildCollision()
+    {
+        transform.GetChild(0).GetComponent<ChildCollision>().enabled = true;
+        transform.GetChild(1).GetComponent<ChildCollision>().enabled = true;
+        //Debug.Log("enabled");
+    }
+
     public void SetChildReference( int type)
     {
         AttackBoxMove(true, type);
     }
 
+    
     private void AttackBoxMove(bool moveAway, int type)
     {
         if (type == 1) 
@@ -99,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChildCollision(GameObject child)
     {
+        //Debug.Log(enemyHP.text);
         if (child.tag == "Punch" && enemyPlayerScript.blockUpper)
         {
             Debug.Log("Blocked upper");
@@ -108,7 +116,16 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Blocked lower");
             return;
         }
-            health -= damage;//this player effect enemy health
+        if(child.tag == "Punch")
+        {
+            health -= punchDamage;//this player effect enemy health
+        }else if (child.tag == "Kick")
+        {
+            health -= kickDamage;
+        }
+
+
+            
         enemyHP.text = $"{health}/100";
         if (!enemyPlayerScript.attackActive)
         {

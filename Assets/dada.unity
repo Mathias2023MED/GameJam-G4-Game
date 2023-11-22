@@ -1167,6 +1167,11 @@ MonoBehaviour:
   player2HP: {fileID: 520949576}
   spawnPoint1: {x: -6, y: 0, z: 0}
   spawnPoint2: {x: 6, y: 0, z: 0}
+  moveSpeed: 700
+  jumpHeight: 5
+  health: 100
+  punchDamage: 15
+  kickDamage: 25
 --- !u!4 &1307170658
 Transform:
   m_ObjectHideFlags: 0

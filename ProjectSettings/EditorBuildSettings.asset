@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/dada.unity
     guid: 7b405cfed0bdb5b4397ad55bd4c8a326
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MAKEITWORK Scene.unity
     guid: 4929089367f71ba4093a8df744459c29
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/the big debug.unity
     guid: 66ee5757d8024de4589aa8431d0dccb8
   m_configObjects: {}

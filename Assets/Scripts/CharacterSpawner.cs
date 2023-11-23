@@ -21,7 +21,7 @@ public class CharacterSpawner : MonoBehaviour
     [SerializeField] private GameObject startGameButton;
 
     [Header("Player stats")]
-    [SerializeField] private float moveSpeed = 700;
+    [SerializeField] private float moveSpeed = 2;
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float health = 100;
     [SerializeField] private float punchDamage = 15;
@@ -30,7 +30,9 @@ public class CharacterSpawner : MonoBehaviour
     private bool player1Chosen = false;
     private GameObject toBeConfirmed;
 
+    [Header("Components")]
     [SerializeField] private GameObject cam;
+    [SerializeField] private SoundManager sm;
 
     private void SelectCharacter(GameObject chosenChar, int slot)
     {
@@ -99,6 +101,7 @@ public class CharacterSpawner : MonoBehaviour
             pm.health = health;
             pm.punchDamage = punchDamage;
             pm.kickDamage = kickDamage;
+            pm.soundManager = sm;
         }
 
         cam.GetComponent<CameraScript>().enabled = true;

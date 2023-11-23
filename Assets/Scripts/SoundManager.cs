@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<AudioClip> kickSounds = new List<AudioClip>();
     [SerializeField] private List<AudioClip> blockSounds = new List<AudioClip>();
     [SerializeField] private List<AudioClip> jumpSounds = new List<AudioClip>();
+    [SerializeField] private List<AudioClip> deathSounds = new List<AudioClip>();
 
     // Start is called before the first frame update
     void Start()
@@ -38,5 +39,10 @@ public class SoundManager : MonoBehaviour
     {
         var rand = Random.Range(0, jumpSounds.Count);
         audioSource.PlayOneShot(jumpSounds[rand]);
+    }
+    public void DeathSound()
+    {
+        var rand = Random.Range(0, deathSounds.Count);
+        audioSource.PlayOneShot(deathSounds[rand]);
     }
 }

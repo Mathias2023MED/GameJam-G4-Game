@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -90,10 +91,14 @@ public class PlayerMovement : MonoBehaviour
         if (playerWin == null)
         {
             playerWin = GameObject.FindAnyObjectByType<PlayerWinScript>().gameObject;
-            Debug.Log("wasnull");
+            //Debug.Log("wasnull "+ playerWin);
+            
+        }
+        if (tag == "Player2")
+        {
             playerWin.SetActive(false);
         }
-
+        
         sr.sprite = idle1;
         //coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }
@@ -182,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (health <= 0) 
         {//death logic
+            soundManager.DeathSound();
             playerWin.SetActive(true);
             playerWin.GetComponent<PlayerWinScript>().EndScreen(name);
             Instantiate(deathExplosion, enemyPlayerScript.transform);

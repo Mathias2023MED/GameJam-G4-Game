@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Slider enemyHP;
 
     [Header("Player stats")]
-    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public float moveSpeed = 2;
     [HideInInspector] public float jumpHeight;
     [HideInInspector] public float health;
     [HideInInspector] public float kickDamage = 25;
@@ -77,7 +77,23 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        
+        if(moveSpeed > 10)//dont look
+        {
+            moveSpeed = 2;
+        }
+        moveSpeed = 2;
+        if (soundManager == null)
+        {
+            soundManager = GameObject.FindAnyObjectByType<SoundManager>();
+            //Debug.Log("wtf");
+        }
+        if (playerWin == null)
+        {
+            playerWin = GameObject.FindAnyObjectByType<PlayerWinScript>().gameObject;
+            Debug.Log("wasnull");
+            playerWin.SetActive(false);
+        }
+
         sr.sprite = idle1;
         //coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }

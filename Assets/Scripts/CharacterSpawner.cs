@@ -104,7 +104,9 @@ public class CharacterSpawner : MonoBehaviour
             pm.kickDamage = kickDamage;
             pm.soundManager = sm;
             pm.playerWin = playerWin;
+            Debug.Log("init once");
         }
+        
 
         cam.GetComponent<CameraScript>().enabled = true;
         cam.GetComponent<CameraScript>().player1 = player1;

@@ -382,7 +382,9 @@ MonoBehaviour:
   moveSpeed: 700
   jumpHeight: 5
   health: 100
-  damage: 10
+  kickDamage: 25
+  punchDamage: 15
+  spriteList: []
   blockHigh: {fileID: 21300000, guid: bbe8be046e8897149b282273c4188f19, type: 3}
   blockLow: {fileID: 21300000, guid: eded07d2dc91ccf44a05c366785853b5, type: 3}
   hurt: {fileID: 21300000, guid: 3dbcac2a8df64b2419f1e8b5b140e5c4, type: 3}

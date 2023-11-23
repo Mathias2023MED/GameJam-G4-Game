@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine coIdle;
     [SerializeField] private float blockDuration = 0.4f;
     [SerializeField] public float hurtTime = 0.3f;
+    private bool shiftPressed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
-    private void AttackBoxMove(bool moveAway, int type)
+    private void AttackBoxMove(bool moveAway, int type)//colliison didnt work when just enabled disabled gameobject so now moves the collision :):):)
     {
         if (type == 1) 
         {
@@ -184,6 +185,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void OnDisableAttacks(InputValue inputValue) //disable attacks when holding shift modifier to block :)
+    {
+        if (inputValue.Get<float>() > 0)
+        {
+            shiftPressed = true;
+            //Debug.Log(inputValue.Get<float>());
+        }
+        else if (inputValue.Get<float>() == 0)
+        {
+            shiftPressed = false;
+            //Debug.Log(inputValue.Get<float>());
+        }
+    }
+
     void OnBlockKick(InputValue inputValue)
     {
         if (inputValue.isPressed && !attackActive)
@@ -211,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnKick(InputValue inputValue)
     {
-        if (inputValue.isPressed && !attackActive) 
+        if (inputValue.isPressed && !attackActive && !shiftPressed) 
         {
             StopAllCoroutines();
             StartCoroutine(KickAttack()); 
@@ -220,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnPunch(InputValue inputValue)
     {
-        if (inputValue.isPressed && !attackActive)
+        if (inputValue.isPressed && !attackActive && !shiftPressed)
         {
             StopAllCoroutines();
             StartCoroutine(PunchAttack());

@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DisableAttacks",
+                    "type": "Value",
+                    "id": "5ad14cfa-7807-431d-8517-0b88fa8d713e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -192,6 +201,17 @@
                     "action": "Punch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46305f74-bd15-4633-b038-1542d62cdf69",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableAttacks",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -218,6 +238,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "BlockPunch",
+                    "type": "Button",
+                    "id": "d7028049-d9fc-4ce1-8d56-bf1d7cab4edf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BlockKick",
+                    "type": "Button",
+                    "id": "d2495c49-7099-405c-b79e-03a0155a4297",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Kick",
                     "type": "Button",
                     "id": "da298154-756c-4f7b-b475-343394cede7f",
@@ -234,6 +272,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DisableAttacks",
+                    "type": "Value",
+                    "id": "95cf1800-8919-41fd-9249-1ec663120c0e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -300,6 +347,83 @@
                     "processors": "",
                     "groups": "",
                     "action": "Punch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "bf164e11-ab92-4390-9e4f-82aa4499a56a",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockKick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "a4ee8e79-8bba-46cb-ad77-c2e7b721eea9",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockKick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "1ca44055-ddb0-4d8a-a4c0-dc0ac5906d9f",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockKick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "72f96f5e-4794-4693-9f23-6e93019b66e0",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockPunch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "f8db2051-5fe8-4782-a883-f90bd07c1a63",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockPunch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "42cd2dc3-49b6-4635-a02f-6f0000f05bab",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlockPunch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1a23ef5a-fd02-4041-a6cb-9194f4a93ae3",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableAttacks",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

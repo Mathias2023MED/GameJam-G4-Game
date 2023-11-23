@@ -72,6 +72,18 @@ public class PlayerMovement : MonoBehaviour
         coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        //Debug.Log(moveSpeed);
+        //Debug.Log(jumpHeight);
+        //Debug.Log(isGrounded);
+        //Debug.Log(attackActive);
+        if (attackActive) { return; }
+        Vector2 moveVector = new Vector2(moveSpeed * moveAxis, rb.velocity.y);
+        rb.velocity = moveVector;
+    }
+
     public void EnableChildCollision()
     {
         transform.GetChild(0).GetComponent<ChildCollision>().enabled = true;
@@ -136,17 +148,7 @@ public class PlayerMovement : MonoBehaviour
         if (health <= 0) { Destroy(enemyPlayerScript.gameObject); }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(moveSpeed);
-        //Debug.Log(jumpHeight);
-        //Debug.Log(isGrounded);
-        //Debug.Log(attackActive);
-        if (attackActive) { return; }
-        Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
-        rb.velocity = moveVector;
-    }
+    
 
     void OnMovement(InputValue inputValue)
     {

@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5841651679726826362}
   - component: {fileID: 4166331536116722233}
   - component: {fileID: 7370617538047650697}
+  - component: {fileID: 2534058283045305706}
   - component: {fileID: 3836444350533685811}
   m_Layer: 0
   m_Name: Benjamin
@@ -235,7 +236,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949882659951819293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -363,6 +364,41 @@ PolygonCollider2D:
       - {x: 0.22999999, y: -3.5349998}
       - {x: -0.32, y: -3.0049999}
   m_UseDelaunayMesh: 0
+--- !u!70 &2534058283045305706
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949882659951819293}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.093592644, y: 0}
+  m_Size: {x: 2.2569714, y: 7.65}
+  m_Direction: 0
 --- !u!114 &3836444350533685811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +420,6 @@ MonoBehaviour:
   health: 100
   kickDamage: 25
   punchDamage: 15
-  spriteList: []
   blockHigh: {fileID: 21300000, guid: bbe8be046e8897149b282273c4188f19, type: 3}
   blockLow: {fileID: 21300000, guid: eded07d2dc91ccf44a05c366785853b5, type: 3}
   hurt: {fileID: 21300000, guid: 3dbcac2a8df64b2419f1e8b5b140e5c4, type: 3}

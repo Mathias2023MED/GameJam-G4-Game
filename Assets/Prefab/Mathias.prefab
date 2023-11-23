@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5841651679726826362}
   - component: {fileID: 4166331536116722233}
   - component: {fileID: 7370617538047650697}
+  - component: {fileID: 4182694636132346120}
   - component: {fileID: 3836444350533685811}
   m_Layer: 0
   m_Name: Mathias
@@ -235,7 +236,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949882659951819293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -363,6 +364,41 @@ PolygonCollider2D:
       - {x: 0.22999999, y: -3.5349998}
       - {x: -0.32, y: -3.0049999}
   m_UseDelaunayMesh: 0
+--- !u!70 &4182694636132346120
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949882659951819293}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.07712078, y: 0}
+  m_Size: {x: 2.5209293, y: 7.65}
+  m_Direction: 0
 --- !u!114 &3836444350533685811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +418,8 @@ MonoBehaviour:
   moveSpeed: 700
   jumpHeight: 5
   health: 100
-  damage: 10
+  kickDamage: 25
+  punchDamage: 15
   blockHigh: {fileID: 21300000, guid: aab70e4f3a1f01147861f332b59d3e65, type: 3}
   blockLow: {fileID: 21300000, guid: 6038dca6d39c2ec4f84c63addb325c0b, type: 3}
   hurt: {fileID: 21300000, guid: a304292630cb4e84ea6272b1ea28da16, type: 3}

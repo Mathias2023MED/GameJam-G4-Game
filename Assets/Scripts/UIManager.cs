@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Button not assigned!");
+            //Debug.LogError("Button not assigned!"); //:)
         }
     }
 

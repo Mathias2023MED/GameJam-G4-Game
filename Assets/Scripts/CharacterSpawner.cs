@@ -33,6 +33,7 @@ public class CharacterSpawner : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameObject cam;
     [SerializeField] private SoundManager sm;
+    [SerializeField] private GameObject playerWin;
 
     private void SelectCharacter(GameObject chosenChar, int slot)
     {
@@ -102,6 +103,7 @@ public class CharacterSpawner : MonoBehaviour
             pm.punchDamage = punchDamage;
             pm.kickDamage = kickDamage;
             pm.soundManager = sm;
+            pm.playerWin = playerWin;
         }
 
         cam.GetComponent<CameraScript>().enabled = true;

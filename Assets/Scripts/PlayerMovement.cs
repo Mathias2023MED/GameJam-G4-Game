@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     private bool shiftPressed = false;
 
     [HideInInspector] public SoundManager soundManager;
+    [HideInInspector] public GameObject playerWin;
     [SerializeField] GameObject deathExplosion;
     
 
@@ -165,8 +166,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (health <= 0) 
         {//death logic
+            playerWin.SetActive(true);
+            playerWin.GetComponent<PlayerWinScript>().EndScreen(name);
             Instantiate(deathExplosion, enemyPlayerScript.transform);
-            enemyPlayerScript.health = 100;
+            //enemyPlayerScript.health = 100;
             enemyPlayerScript.enabled = false;
             enemyPlayerScript.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<PlayerInput>().enabled = false;

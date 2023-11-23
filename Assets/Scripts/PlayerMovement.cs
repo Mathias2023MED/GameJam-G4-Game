@@ -61,10 +61,14 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine coIdle;
     [SerializeField] private float blockDuration = 0.4f;
     [SerializeField] public float hurtTime = 0.3f;
+
+    [SerializeField] private float stunTime = 2f;
+
     private bool shiftPressed = false;
 
     [HideInInspector] public SoundManager soundManager;
     [SerializeField] GameObject deathExplosion;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -130,11 +134,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Blocked upper");
             soundManager.BlockSound();
+            StopAllCoroutines();
+            StartCoroutine(StunTime());
             return;
         }else if (child.tag == "Kick" && enemyPlayerScript.blockLower)
         {
             Debug.Log("Blocked lower");
             soundManager.BlockSound();
+            StopAllCoroutines();
+            StartCoroutine(StunTime());
             return;
         }
         if(child.tag == "Kick")
@@ -156,12 +164,13 @@ public class PlayerMovement : MonoBehaviour
             enemyPlayerScript.StartCoroutine(HurtTime());
         }
         if (health <= 0) 
-        {
-            Debug.Log("no?");
+        {//death logic
             Instantiate(deathExplosion, enemyPlayerScript.transform);
+            enemyPlayerScript.health = 100;
             enemyPlayerScript.enabled = false;
             enemyPlayerScript.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            this.enabled = false;
+            gameObject.GetComponent<PlayerInput>().enabled = false;
+            enemyPlayerScript.gameObject.GetComponent<PlayerInput>().enabled = false;
         }
     }
 
@@ -375,6 +384,17 @@ public class PlayerMovement : MonoBehaviour
         
         enemyPlayerScript.sr.sprite = enemyPlayerScript.idle1;
         enemyPlayerScript.coIdle = enemyPlayerScript.StartCoroutine(enemyPlayerScript.IdleLoop());
+    }
+
+    IEnumerator StunTime()
+    {
+        sr.sprite = hurt;
+        attackActive = true;
+        yield return new WaitForSeconds(stunTime);
+        attackActive = false;
+
+        sr.sprite = idle1;
+        coIdle = enemyPlayerScript.StartCoroutine(IdleLoop());
     }
 
 

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool blockLower;
 
     [HideInInspector] public PlayerMovement enemyPlayerScript; //used on char spawner
-    [HideInInspector] public TMP_Text enemyHP;
+    //[HideInInspector] public TMP_Text enemyHP;
+    [HideInInspector] public Slider enemyHP;
 
     [Header("Player stats")]
     [HideInInspector] public float moveSpeed;
@@ -69,7 +71,19 @@ public class PlayerMovement : MonoBehaviour
 
         
         sr.sprite = idle1;
-        coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
+        //coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Debug.Log(moveSpeed);
+        //Debug.Log(jumpHeight);
+        //Debug.Log(isGrounded);
+        //Debug.Log(attackActive);
+        if (attackActive) { return; }
+        Vector2 moveVector = new Vector2(moveSpeed * moveAxis, rb.velocity.y);
+        rb.velocity = moveVector;
     }
 
     public void EnableChildCollision()
@@ -126,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
             
-        enemyHP.text = $"{health}/100";
+        enemyHP.value = health*0.01f;
         if (!enemyPlayerScript.attackActive)
         {
             enemyPlayerScript.StopAllCoroutines();
@@ -136,17 +150,7 @@ public class PlayerMovement : MonoBehaviour
         if (health <= 0) { Destroy(enemyPlayerScript.gameObject); }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log(moveSpeed);
-        //Debug.Log(jumpHeight);
-        //Debug.Log(isGrounded);
-        //Debug.Log(attackActive);
-        if (attackActive) { return; }
-        Vector2 moveVector = new Vector2 (moveSpeed * moveAxis * Time.deltaTime, rb.velocity.y);
-        rb.velocity = moveVector;
-    }
+    
 
     void OnMovement(InputValue inputValue)
     {
@@ -163,7 +167,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             sr.sprite = idle1;
-            StopCoroutine(coWalk);
+            //StopCoroutine(coWalk); //fixed error down
+            StopAllCoroutines();
             coIdle = StartCoroutine(IdleLoop());
         }
         //Debug.Log(inputValue.Get<float>()); 

@@ -1169,7 +1169,7 @@ MonoBehaviour:
   spawnPoint1: {x: -6, y: 0, z: 0}
   spawnPoint2: {x: 6, y: 0, z: 0}
   startGameButton: {fileID: 0}
-  moveSpeed: 700
+  moveSpeed: 2
   jumpHeight: 5
   health: 100
   punchDamage: 15

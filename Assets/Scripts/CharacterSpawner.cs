@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterSpawner : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> characterPrefabs = new List<GameObject>();
+    [SerializeField] private List<GameObject> characterPrefabs = new List<GameObject>();//delet?
     //private List<GameObject> chosenCharacters = new List<GameObject>();
-    public GameObject[] chosenCharacters = new GameObject[2];
+    public GameObject[] chosenCharacters = new GameObject[2]; //make private but usefull for testing
 
-    [SerializeField] public TMP_Text player1HP;
-    [SerializeField] public TMP_Text player2HP;
+    [SerializeField] public Slider player1HP;
+    [SerializeField] public Slider player2HP;
 
     [SerializeField] private Vector3 spawnPoint1 = new Vector3(-6,0,0);
     [SerializeField] private Vector3 spawnPoint2 = new Vector3(6, 0, 0);
@@ -28,7 +30,9 @@ public class CharacterSpawner : MonoBehaviour
     private bool player1Chosen = false;
     private GameObject toBeConfirmed;
 
-    public void SelectCharacter(GameObject chosenChar, int slot)
+    [SerializeField] private GameObject cam;
+
+    private void SelectCharacter(GameObject chosenChar, int slot)
     {
         if (slot == 1)
         {
@@ -47,9 +51,11 @@ public class CharacterSpawner : MonoBehaviour
         {
             SelectCharacter(toBeConfirmed, 1);
             player1Chosen = true;
+            //Debug.Log(toBeConfirmed + " chosen " + player1Chosen);
         }
         else
         {
+            //Debug.Log(toBeConfirmed + " chosen 2 " + player1Chosen);
             SelectCharacter(toBeConfirmed, 2);
         }
         toBeConfirmed = null;
@@ -58,6 +64,7 @@ public class CharacterSpawner : MonoBehaviour
     public void ChooseChar(GameObject chosenChar) 
     {
         toBeConfirmed = chosenChar;
+        //Debug.Log(toBeConfirmed.name);
     }
     public void StartGame()
     {
@@ -93,6 +100,10 @@ public class CharacterSpawner : MonoBehaviour
             pm.punchDamage = punchDamage;
             pm.kickDamage = kickDamage;
         }
+
+        cam.GetComponent<CameraScript>().enabled = true;
+        cam.GetComponent<CameraScript>().player1 = player1;
+        cam.GetComponent<CameraScript>().player2 = player2;
 
 
         player1.GetComponent<PlayerMovement>().EnableChildCollision();

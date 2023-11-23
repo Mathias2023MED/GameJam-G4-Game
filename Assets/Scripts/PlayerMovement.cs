@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         sr.sprite = idle1;
-        coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
+        //coIdle = StartCoroutine(IdleLoop());//maybe remove 1 line 
     }
 
     // Update is called once per frame

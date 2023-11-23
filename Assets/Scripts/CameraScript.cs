@@ -7,6 +7,7 @@ public class CameraScript : MonoBehaviour
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
     [SerializeField] float zOffset = -10f;
+    [SerializeField] float yOffset = -1f;
     [SerializeField] float zoomOutThreshHold = 10f;
     [SerializeField] float minCamSize = 5f;
     [SerializeField] float maxCamSize = 10f;
@@ -23,7 +24,7 @@ public class CameraScript : MonoBehaviour
     {
         if (player1 == null) { return; }
         transform.position = Vector3.Lerp(player1.transform.position, player2.transform.position, 0.5f);
-        transform.position = new Vector3(transform.position.x, 0, zOffset);
+        transform.position = new Vector3(transform.position.x, yOffset, zOffset);
 
         //var dist = ((player2.transform.position - player1.transform.position).normalized);
 

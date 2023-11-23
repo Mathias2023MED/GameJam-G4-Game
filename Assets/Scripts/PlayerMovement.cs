@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool blockLower;
 
     [HideInInspector] public PlayerMovement enemyPlayerScript; //used on char spawner
-    [HideInInspector] public TMP_Text enemyHP;
+    //[HideInInspector] public TMP_Text enemyHP;
+    [HideInInspector] public Slider enemyHP;
 
     [Header("Player stats")]
     [HideInInspector] public float moveSpeed;
@@ -138,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
             
-        enemyHP.text = $"{health}/100";
+        enemyHP.value = health*0.01f;
         if (!enemyPlayerScript.attackActive)
         {
             enemyPlayerScript.StopAllCoroutines();
@@ -165,7 +167,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             sr.sprite = idle1;
-            StopCoroutine(coWalk);
+            //StopCoroutine(coWalk); //fixed error down
+            StopAllCoroutines();
             coIdle = StartCoroutine(IdleLoop());
         }
         //Debug.Log(inputValue.Get<float>()); 

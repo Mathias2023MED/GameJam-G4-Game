@@ -4,15 +4,16 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterSpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> characterPrefabs = new List<GameObject>();//delet?
     //private List<GameObject> chosenCharacters = new List<GameObject>();
-    public GameObject[] chosenCharacters = new GameObject[2]; //make private
+    public GameObject[] chosenCharacters = new GameObject[2]; //make private but usefull for testing
 
-    [SerializeField] public TMP_Text player1HP;
-    [SerializeField] public TMP_Text player2HP;
+    [SerializeField] public Slider player1HP;
+    [SerializeField] public Slider player2HP;
 
     [SerializeField] private Vector3 spawnPoint1 = new Vector3(-6,0,0);
     [SerializeField] private Vector3 spawnPoint2 = new Vector3(6, 0, 0);

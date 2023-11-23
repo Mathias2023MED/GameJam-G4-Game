@@ -1160,6 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21512873ffd4ac4096a1a364338f99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterPrefabs: []
   chosenCharacters:
   - {fileID: 1949882659951819293, guid: fe20ed4f12418d84facafaf1b4354187, type: 3}
   - {fileID: 1949882659951819293, guid: b45f3b2980c4e244e80812fab0fec45d, type: 3}
@@ -1167,6 +1168,12 @@ MonoBehaviour:
   player2HP: {fileID: 520949576}
   spawnPoint1: {x: -6, y: 0, z: 0}
   spawnPoint2: {x: 6, y: 0, z: 0}
+  startGameButton: {fileID: 0}
+  moveSpeed: 700
+  jumpHeight: 5
+  health: 100
+  punchDamage: 15
+  kickDamage: 25
 --- !u!4 &1307170658
 Transform:
   m_ObjectHideFlags: 0

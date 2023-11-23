@@ -63,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float hurtTime = 0.3f;
     private bool shiftPressed = false;
 
+    [HideInInspector] public SoundManager soundManager;
+    [SerializeField] GameObject deathExplosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (attackActive) { return; }
         Vector2 moveVector = new Vector2(moveSpeed * moveAxis, rb.velocity.y);
         rb.velocity = moveVector;
+        
     }
 
     public void EnableChildCollision()
@@ -125,18 +129,22 @@ public class PlayerMovement : MonoBehaviour
         if (child.tag == "Punch" && enemyPlayerScript.blockUpper)
         {
             Debug.Log("Blocked upper");
+            soundManager.BlockSound();
             return;
         }else if (child.tag == "Kick" && enemyPlayerScript.blockLower)
         {
             Debug.Log("Blocked lower");
+            soundManager.BlockSound();
             return;
         }
         if(child.tag == "Kick")
         {
             health -= kickDamage;//this player effect enemy health
+            soundManager.KickSound();
         }else if (child.tag == "Punch")
         {
             health -= punchDamage;
+            soundManager.PunchSound();
         }
 
             
@@ -147,7 +155,14 @@ public class PlayerMovement : MonoBehaviour
             enemyPlayerScript.sr.sprite = enemyPlayerScript.hurt;
             enemyPlayerScript.StartCoroutine(HurtTime());
         }
-        if (health <= 0) { Destroy(enemyPlayerScript.gameObject); }
+        if (health <= 0) 
+        {
+            Debug.Log("no?");
+            Instantiate(deathExplosion, enemyPlayerScript.transform);
+            enemyPlayerScript.enabled = false;
+            enemyPlayerScript.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.enabled = false;
+        }
     }
 
     
@@ -182,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isGrounded && !attackActive)
             {
+                soundManager.JumpSound();
                 Vector2 moveVector = new Vector2(rb.velocity.x, jumpHeight);
                 rb.velocity = moveVector;
                 StopAllCoroutines();
